@@ -10,6 +10,21 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { GooglePlus } from '@ionic-native/google-plus'
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth'
+import { AuthProvider } from '../providers/auth/auth';
+import { SignupPage } from '../pages/signup/signup';
+import { ResetPasswordPage } from '../pages/reset-password/reset-password'
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyBtL3MBc8yu63eZlm6uTVnVvfT-xIQvc6A",
+  authDomain: "projetmobilem2-4b437.firebaseapp.com",
+  databaseURL: "https://projetmobilem2-4b437.firebaseio.com",
+  projectId: "projetmobilem2-4b437",
+  storageBucket: "projetmobilem2-4b437.appspot.com",
+  messagingSenderId: "622868024418"
+}
 
 @NgModule({
   declarations: [
@@ -17,11 +32,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    SignupPage,
+    ResetPasswordPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -29,12 +47,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    SignupPage,
+    ResetPasswordPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthProvider,
+    AngularFireAuth,
+    GooglePlus
   ]
 })
 export class AppModule {}
