@@ -4,6 +4,8 @@ import { NavController } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth'
 import { SignupPage } from '../signup/signup'
 import { ResetPasswordPage } from '../reset-password/reset-password'
+import { AlbumsPage } from '../../pages/albums/albums'
+
 
 @Component({
   selector: 'page-home',
@@ -48,7 +50,17 @@ export class HomePage {
     }
   }
 
+  goToAlbum() {
+    this.navCtrl.push(AlbumsPage).catch(err => {
+      alert("No entry, please login first");
+    });
+  }
+
   logout(): void {
     this.auth.logout();
+  }
+
+  ionViewCanLeave(){
+    this.auth.authenticated();
   }
 }

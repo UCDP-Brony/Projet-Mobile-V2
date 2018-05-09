@@ -12,19 +12,15 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GooglePlus } from '@ionic-native/google-plus'
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule} from 'angularfire2/database'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { AuthProvider } from '../providers/auth/auth';
 import { SignupPage } from '../pages/signup/signup';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password'
+import { AlbumsPage } from '../pages/albums/albums'
 
-export const firebaseConfig = {
-  apiKey: "AIzaSyBtL3MBc8yu63eZlm6uTVnVvfT-xIQvc6A",
-  authDomain: "projetmobilem2-4b437.firebaseapp.com",
-  databaseURL: "https://projetmobilem2-4b437.firebaseio.com",
-  projectId: "projetmobilem2-4b437",
-  storageBucket: "projetmobilem2-4b437.appspot.com",
-  messagingSenderId: "622868024418"
-}
+import { FIREBASE_CONFIG } from './firebase.config';
+
 
 @NgModule({
   declarations: [
@@ -34,12 +30,14 @@ export const firebaseConfig = {
     HomePage,
     TabsPage,
     SignupPage,
-    ResetPasswordPage
+    ResetPasswordPage,
+    AlbumsPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,7 +47,8 @@ export const firebaseConfig = {
     HomePage,
     TabsPage,
     SignupPage,
-    ResetPasswordPage
+    ResetPasswordPage,
+    AlbumsPage
   ],
   providers: [
     StatusBar,

@@ -6,15 +6,20 @@ import { Observable } from "rxjs/Observable";
 import { GooglePlus } from '@ionic-native/google-plus';
 //import { auth } from 'firebase';
 
+import { AngularFireDatabase } from 'angularfire2/database'
+
 @Injectable()
 export class AuthProvider {
 
-  constructor(private af: AngularFireAuth, public googlePlus: GooglePlus) {
+  private isLoggedIn = false;
+  constructor(private af: AngularFireAuth, public googlePlus: GooglePlus, private afDB: AngularFireDatabase) {
   }
 
   loginWithEmail(credentials) {
     return Observable.create(observer => {
-      this.af.auth.signInWithEmailAndPassword(credentials.email, credentials.password).then((authData) => {
+      this.af.auth.signInWithEmailAndPassword(credentials.email, credentials.password)
+      .then((authData) => {
+        this.isLoggedIn = true;
         //console.log(authData);
         observer.next(authData);
       }).catch((error) => {
@@ -37,13 +42,17 @@ export class AuthProvider {
       .then( res => {
         const firecreds = firebase.auth.GoogleAuthProvider.credential(res.idToken);
         firebase.auth().signInWithCredential(firecreds)
-        .then( success => { observer.next(success); })
+        .then( success => {
+          this.isLoggedIn = true;
+          observer.next(success);
+        })
         .catch(error => {
           observer.error(error);
         });
       });
     })
   }
+
 
 /*
   private oauthSignIn(provider: AuthProvider) {
@@ -126,9 +135,15 @@ export class AuthProvider {
 
   logout() {
     this.af.auth.signOut();
+    this.isLoggedIn = false;
   }
 
   get currentUser():string{
     return this.af.auth.currentUser?this.af.auth.currentUser.email:null;
   }
+
+  authenticated():boolean{
+    return this.isLoggedIn;
+  }
+
 }

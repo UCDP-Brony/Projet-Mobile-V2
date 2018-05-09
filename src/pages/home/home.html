@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar primary *navbar>
     <ion-title>
       ProjetMobile - picture navigator
     </ion-title>
@@ -25,21 +25,24 @@
             <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
         </ion-item>
     </ion-row>
-      <ion-row>
+    <ion-row *ngIf="auth.currentUser == null">
         <button (click)="login()" ion-button block>Log in</button>
-      </ion-row>
-      <ion-row>
+    </ion-row>
+    <ion-row *ngIf="auth.currentUser == null">
         <button [navPush]="signupPage" ion-button block>Sign up</button>
-      </ion-row>
-      <!--new link to sign up page-->
-      <ion-row>
-        <button [navPush]="resetPasswordPage" ion-button block>Reset password</button>
-      </ion-row>
-      <ion-row>
-        <button (click)="logout()" ion-button block>Log out</button>
-      </ion-row>
-      <ion-row>
-        <button (click)="loginWithGoogle()" ion-button block>Google login</button>
+    </ion-row>
+    <!--new link to sign up page-->
+    <ion-row>
+      <button [navPush]="resetPasswordPage" ion-button block>Reset password</button>
+    </ion-row>
+    <ion-row *ngIf="auth.currentUser">
+      <button (click)="logout()" ion-button block>Log out</button>
+    </ion-row>
+    <ion-row *ngIf="auth.currentUser == null">
+      <button (click)="loginWithGoogle()" ion-button block>Google login</button>
+    </ion-row>
+    <ion-row *ngIf="auth.currentUser">
+      <button (click)="goToAlbum()" ion-button block>Go to albums</button>
     </ion-row>
   </form>
 
