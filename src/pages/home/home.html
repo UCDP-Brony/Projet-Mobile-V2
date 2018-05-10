@@ -41,6 +41,11 @@
     <ion-row *ngIf="auth.currentUser == null">
       <button (click)="loginWithGoogle()" ion-button block>Google login</button>
     </ion-row>
+    <!--
+    <ion-row *ngIf="auth.currentUser == null">
+      <button (click)="loginWithFacebook()" ion-button block>Facebook login</button>
+    </ion-row>
+  -->
     <ion-row *ngIf="auth.currentUser">
       <button (click)="goToAlbum()" ion-button block>Go to albums</button>
     </ion-row>

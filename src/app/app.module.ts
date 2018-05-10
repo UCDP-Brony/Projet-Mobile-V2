@@ -10,14 +10,15 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { GooglePlus } from '@ionic-native/google-plus'
+import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus'; //Added Google
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule} from 'angularfire2/database'
-import { AngularFireAuth } from 'angularfire2/auth'
+import { AngularFireDatabaseModule} from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthProvider } from '../providers/auth/auth';
 import { SignupPage } from '../pages/signup/signup';
-import { ResetPasswordPage } from '../pages/reset-password/reset-password'
-import { AlbumsPage } from '../pages/albums/albums'
+import { ResetPasswordPage } from '../pages/reset-password/reset-password';
+import { AlbumsPage } from '../pages/albums/albums';
 
 import { FIREBASE_CONFIG } from './firebase.config';
 

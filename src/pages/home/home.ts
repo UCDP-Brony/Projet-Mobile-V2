@@ -35,7 +35,15 @@ export class HomePage {
       console.log(err);
     });
   }
-
+/*
+  loginWithFacebook(): void{
+    this.auth.loginWithFacebook().subscribe((success) => {
+      console.log(success);
+    }, err => {
+      console.log(err);
+    });
+  }
+*/
   login(): void {
     if (this.loginForm.valid) {
       var credentials = ({email: this.email.value, password: this.password.value}); //Added next lines

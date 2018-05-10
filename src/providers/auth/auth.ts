@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import { firebase } from '@firebase/app'
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from "rxjs/Observable";
-//import { Platform } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { GooglePlus } from '@ionic-native/google-plus';
-//import { auth } from 'firebase';
+import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
 
-import { AngularFireDatabase } from 'angularfire2/database'
 
 @Injectable()
 export class AuthProvider {
 
   private isLoggedIn = false;
-  constructor(private af: AngularFireAuth, public googlePlus: GooglePlus, private afDB: AngularFireDatabase) {
+  constructor(private af: AngularFireAuth, public googlePlus: GooglePlus, private afDB: AngularFireDatabase, private platform: Platform) {
   }
+
+
 
   loginWithEmail(credentials) {
     return Observable.create(observer => {
@@ -33,23 +34,58 @@ export class AuthProvider {
       return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());
   }
 */
-  loginWithGoogle(){
+/*
+  loginWithFacebook() {
     return Observable.create(observer => {
-      return this.googlePlus.login({
-        'webClientId':'622868024418-f2ke9ehl6f1rfb4dreliill9ctbc178h.apps.googleusercontent.com', //Android reverse client id
-        'offline': true
-      })
-      .then( res => {
-        const firecreds = firebase.auth.GoogleAuthProvider.credential(res.idToken);
-        firebase.auth().signInWithCredential(firecreds)
-        .then( success => {
+      if (this.platform.is('cordova')) {
+        return this.fb.login(['email', 'public_profile']).then(res => {
+          const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+            this.af.app.auth().signInWithCredential(facebookCredential).then(()=>{
+            observer.next();
+          }).catch(error => {
+            //console.log(error);
+            observer.error(error);
+          });
+        });
+      } else {
+        return this.af.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(()=>{
           this.isLoggedIn = true;
-          observer.next(success);
-        })
-        .catch(error => {
+          observer.next();
+        }).catch(error => {
+          //console.log(error);
           observer.error(error);
         });
-      });
+      }
+    });
+  }
+*/
+  loginWithGoogle(){
+    return Observable.create(observer => {
+      if (this.platform.is('cordova')) {
+        return this.googlePlus.login({
+          'webClientId':'622868024418-f2ke9ehl6f1rfb4dreliill9ctbc178h.apps.googleusercontent.com', //Android reverse client id
+          'offline': true
+        })
+        .then( res => {
+          const firecreds = firebase.auth.GoogleAuthProvider.credential(res.idToken);
+          this.af.app.auth().signInWithCredential(firecreds)
+          .then( success => {
+            this.isLoggedIn = true;
+            observer.next(success);
+          })
+          .catch(error => {
+            observer.error(error);
+          });
+        });
+      } else {
+        return this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(()=>{
+          this.isLoggedIn = true;
+          observer.next();
+        }).catch(error => {
+          //console.log(error);
+          observer.error(error);
+        });
+      }
     })
   }
 
