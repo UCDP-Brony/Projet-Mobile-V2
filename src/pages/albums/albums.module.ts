@@ -10,4 +10,13 @@ import { AlbumsPage } from './albums';
     IonicPageModule.forChild(AlbumsPage),
   ],
 })
-export class AlbumsPageModule {}
+export class AlbumsPageModule {
+
+
+
+
+
+
+
+
+}
