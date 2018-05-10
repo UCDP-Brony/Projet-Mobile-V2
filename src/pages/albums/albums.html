@@ -14,7 +14,20 @@
 
 
 <ion-content padding>
-  <ion-row>
-    <button (click)="logout()" ion-button block>Log out</button>
-  </ion-row>
+	<ion-item>
+   		<button (click)="addAlbum()" ion-button item-start icon-left>Album
+		<ion-icon name="add-circle"></ion-icon>
+		</button>
+	
+		<button (click)="logout()" ion-button icon-left>Photo
+		<ion-icon name="add-circle"></ion-icon>
+		</button>
+
+<!--
+
+  <ion-row align-items: flex-end>-->
+	
+   		<button (click)="logout()" ion-button item-end>Log out</button>
+	</ion-item>
+  <!--</ion-row>-->
 </ion-content>
