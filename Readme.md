@@ -1,4 +1,4 @@
-
+Binome: Joachim Woerly-Moussier & Lucas Legrand
 
 -git clone https://github.com/UCDP-Brony/Projet-Mobile-V2.git
 
@@ -38,12 +38,45 @@ npm install -g cordova ionic
 Correctif:
 node_modules/angularfire2/firebase.app.module.d.ts
 line 19, add :
-cc
+automaticDataCollectionEnabled: boolean;
 
 
 apt-get install gradle
 
 -Build
 ionic cordova run android -- -- --gradleArg=--stacktrace
+
+-Fonctionne sous Android et sous navigateur.
+JDK 1.8
+SDK Android 26.0.0
+
+-Fonctionnalités:
+
+Login Google
+Login mail (initiave)
+Reset password (initiative)
+Redirection page login
+
+Entamé:
+
+Modeles de Photo et Album
+Push Firebase d'un album
+Login Facebook
+Redirection de pages via un champ "utilisateur connecté" dans Firebase (abandonné car mal pensé)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
